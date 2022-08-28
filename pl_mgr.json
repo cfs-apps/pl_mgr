@@ -1,0 +1,27 @@
+{ "app": {
+   
+   "title": "Payload Manager",
+   "version": "0.9.0",
+   "owner": "OpenSatkit",
+   "url": "https://github.com/OpenSatKit-Apps/pl_mgr",
+
+   "description": [
+      "Example payload manager"
+   ],
+
+   "cfs": {
+      "cfe-type": "CFE_APP",
+      "obj-file": "pl_mgr",
+      "entry-symbol": "PL_MGR_AppMain",
+      "name": "PL_MGR",
+      "priority": 70,
+      "stack": 16384,
+      "load_addr": 0,
+      "exception-action": 0,
+      "app-framework": "osk",
+      "tables": ["pl_mgr_ini.json"],
+      "cmd-mid": "PL_MGR_CMD_MID"
+   }
+   
+}}
+

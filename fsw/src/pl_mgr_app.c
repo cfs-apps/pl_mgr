@@ -30,6 +30,7 @@
 
 #include <string.h>
 #include "pl_mgr_app.h"
+#include "pl_mgr_eds_cc.h"
 
 
 /***********************/
@@ -173,7 +174,7 @@ static int32 InitApp(void)
       CFE_ES_PerfLogEntry(PlMgr.PerfId);
 
       PlMgr.CmdMid      = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_CMD_TOPICID));
-      PlMgr.ExecuteMid  = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_EXE_TOPICID));
+      PlMgr.ExecuteMid  = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_BC_SCH_1_HZ_TOPICID));
       PlMgr.TlmSlowRate = INITBL_GetIntConfig(INITBL_OBJ, CFG_TLM_SLOW_RATE);
 
       PAYLOAD_Constructor(PAYLOAD_OBJ, INITBL_OBJ);
@@ -193,13 +194,13 @@ static int32 InitApp(void)
       */
 
       CMDMGR_Constructor(CMDMGR_OBJ);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_NOOP_CMD_FC,  NULL, PL_MGR_NoOpCmd,     0);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_RESET_CMD_FC, NULL, PL_MGR_ResetAppCmd, 0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_NOOP_CC,  NULL, PL_MGR_NoOpCmd,     0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_RESET_CC, NULL, PL_MGR_ResetAppCmd, 0);
               
   
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PAYLOAD_START_SCI_CMD_FC, PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, PAYLOAD_START_SCI_CMD_DATA_LEN);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PAYLOAD_STOP_SCI_CMD_FC,  PAYLOAD_OBJ,  PAYLOAD_StopSciCmd,  PAYLOAD_STOP_SCI_CMD_DATA_LEN);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, SCI_FILE_CONFIG_CMD_FC,   SCI_FILE_OBJ, SCI_FILE_ConfigCmd,  SCI_FILE_CONFIG_CMD_DATA_LEN);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_START_SCI_CC,       PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, 0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_STOP_SCI_CC,        PAYLOAD_OBJ,  PAYLOAD_StopSciCmd,  0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_CONFIG_SCI_FILE_CC, SCI_FILE_OBJ, SCI_FILE_ConfigCmd,  sizeof(PL_MGR_ConfigSciFile_Payload_t));
      
       CFE_MSG_Init(CFE_MSG_PTR(PlMgr.StatusTlm.TelemetryHeader), 
                    CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_STATUS_TLM_TOPICID)),
@@ -256,7 +257,7 @@ static int32 ProcessCommands(void)
          {
 
             PAYLOAD_ManageData();
-            if (PlMgr.Payload.CurrPower != PL_SIM_LIB_POWER_OFF)
+            if (PlMgr.Payload.CurrPower != PL_SIM_LIB_Power_OFF)
             {
                SendStatusTlm();
             }
@@ -309,30 +310,32 @@ static int32 ProcessCommands(void)
 static void SendStatusTlm(void)
 {
 
+   PL_MGR_StatusTlm_Payload_t *Payload = &PlMgr.StatusTlm.Payload;
+
    /*
    ** CMDMGR Data
    */
 
-   PlMgr.StatusTlm.ValidCmdCnt   = PlMgr.CmdMgr.ValidCmdCnt;
-   PlMgr.StatusTlm.InvalidCmdCnt = PlMgr.CmdMgr.InvalidCmdCnt;
+   Payload->ValidCmdCnt   = PlMgr.CmdMgr.ValidCmdCnt;
+   Payload->InvalidCmdCnt = PlMgr.CmdMgr.InvalidCmdCnt;
 
    
    /*
    ** Payload Data
    */
    
-   PlMgr.StatusTlm.PayloadPowerState         = PlMgr.Payload.CurrPower;
-   PlMgr.StatusTlm.PayloadDetectorFault      = PlMgr.Payload.DetectorFault;
-   PlMgr.StatusTlm.PayloadDetectorReadoutRow = PlMgr.Payload.Detector.ReadoutRow;
-   PlMgr.StatusTlm.PayloadDetectorImageCnt   = PlMgr.Payload.Detector.ImageCnt;
+   Payload->PayloadPowerState         = PlMgr.Payload.CurrPower;
+   Payload->PayloadDetectorFault      = PlMgr.Payload.DetectorFault;
+   Payload->PayloadDetectorReadoutRow = PlMgr.Payload.Detector.ReadoutRow;
+   Payload->PayloadDetectorImageCnt   = PlMgr.Payload.Detector.ImageCnt;
 
    /*
    ** Science File Data
    */   
 
-   PlMgr.StatusTlm.SciFileOpen     = PlMgr.Payload.SciFile.IsOpen;
-   PlMgr.StatusTlm.SciFileImageCnt = PlMgr.Payload.SciFile.ImageCnt;   
-   strncpy(PlMgr.StatusTlm.SciFilename, PlMgr.Payload.SciFile.Name, OS_MAX_PATH_LEN);
+   Payload->SciFileOpen     = PlMgr.Payload.SciFile.IsOpen;
+   Payload->SciFileImageCnt = PlMgr.Payload.SciFile.ImageCnt;   
+   strncpy(Payload->SciFilename, PlMgr.Payload.SciFile.Name, OS_MAX_PATH_LEN);
    
    CFE_SB_TimeStampMsg(CFE_MSG_PTR(PlMgr.StatusTlm.TelemetryHeader));
    CFE_SB_TransmitMsg(CFE_MSG_PTR(PlMgr.StatusTlm.TelemetryHeader), true);

@@ -8,9 +8,9 @@
       "APP_CFE_NAME": "PL_MGR",
       "APP_PERF_ID" : 127,
       
-      "PL_MGR_CMD_TOPICID"        : 6242,
-      "PL_MGR_EXE_TOPICID"        : 6243,
-      "PL_MGR_STATUS_TLM_TOPICID" : 2144,
+      "PL_MGR_CMD_TOPICID"        : 0,
+      "BC_SCH_1_HZ_TOPICID"       : 0,
+      "PL_MGR_STATUS_TLM_TOPICID" : 0,
       "TLM_SLOW_RATE": 4,
       
       "CMD_PIPE_DEPTH": 10,

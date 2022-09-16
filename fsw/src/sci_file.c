@@ -67,7 +67,7 @@ void SCI_FILE_Constructor(SCI_FILE_Class_t *SciFilePtr, INITBL_Class_t *IniTbl)
    /* Load initialization configurations */
    
    SciFile->Config.ImagesPerFile = INITBL_GetIntConfig(IniTbl, CFG_SCI_FILE_IMAGE_CNT);
-   strncpy(SciFile->Config.PathBaseFilename,
+   strncpy(SciFile->Config.BasePathFilename,
            INITBL_GetStrConfig(IniTbl, CFG_SCI_FILE_PATH_BASE),
            OS_MAX_PATH_LEN);
    strncpy(SciFile->Config.FileExtension,
@@ -95,12 +95,12 @@ void SCI_FILE_Constructor(SCI_FILE_Class_t *SciFilePtr, INITBL_Class_t *IniTbl)
 bool SCI_FILE_ConfigCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 {
 
-   const  SCI_FILE_Config_t *ConfigCmd = CMDMGR_PAYLOAD_PTR(MsgPtr, SCI_FILE_ConfigCmdMsg_t);
+   const PL_MGR_ConfigSciFile_Payload_t *ConfigCmd = CMDMGR_PAYLOAD_PTR(MsgPtr, PL_MGR_ConfigSciFile_t);
    
    SciFile->Config.ImagesPerFile = ConfigCmd->ImagesPerFile;
    
-   strncpy(SciFile->Config.PathBaseFilename, ConfigCmd->PathBaseFilename, OS_MAX_PATH_LEN);
-   SciFile->Config.PathBaseFilename[OS_MAX_PATH_LEN-1] = '\0';
+   strncpy(SciFile->Config.BasePathFilename, ConfigCmd->BasePathFilename, OS_MAX_PATH_LEN);
+   SciFile->Config.BasePathFilename[OS_MAX_PATH_LEN-1] = '\0';
    
    strncpy(SciFile->Config.FileExtension, ConfigCmd->FileExtension, SCI_FILE_EXT_MAX_CHAR);
    SciFile->Config.FileExtension[SCI_FILE_EXT_MAX_CHAR-1] = '\0';
@@ -117,7 +117,11 @@ bool SCI_FILE_ConfigCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 void SCI_FILE_ResetStatus(void)
 {
 
-   /* No state data should be changed */
+   /* For a state reset if it somehow is disabled with a non-disabled state */
+   if (SciFile->State == SCI_FILE_DISABLED)
+   {
+      InitFileState();
+   }
    
 } /* End SCI_FILE_ResetStatus() */
 
@@ -286,7 +290,7 @@ static void CreateCntFilename(uint16 ImageId)
 
    sprintf(ImageIdStr,"%03d",ImageId);
 
-   strcpy (SciFile->Name, SciFile->Config.PathBaseFilename);
+   strcpy (SciFile->Name, SciFile->Config.BasePathFilename);
 
    i = strlen(SciFile->Name);  /* Starting position for image ID */
    strcat (&(SciFile->Name[i]), ImageIdStr);
@@ -362,7 +366,7 @@ static bool CreateFile(uint16 ImageId)
 */
 static void InitFileState(void)
 {
-   
+
    SciFile->CreateNewFile = false;
    SciFile->State    = SCI_FILE_DISABLED;
    SciFile->Handle   = 0;

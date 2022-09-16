@@ -65,23 +65,6 @@
 /** Type Definitions **/
 /**********************/
 
-/******************************************************************************
-** Command Packets
-**
-** Use separate function codes for start/stop science commands. Therefore they
-** have no parameters which makes it easier for automated onboard command
-** sequences.
-**
-*/
-
-#define PAYLOAD_START_SCI_CMD_DATA_LEN  CMDMGR_NO_PARAM_CMD_DATA_LEN
-#define PAYLOAD_STOP_SCI_CMD_DATA_LEN   CMDMGR_NO_PARAM_CMD_DATA_LEN
-
-
-/******************************************************************************
-** Telemetry Packets
-*/
-
 
 /******************************************************************************
 ** PL_MGR Class
@@ -90,9 +73,9 @@
 typedef struct
 {
    
-   PL_SIM_LIB_Power_t    CurrPower;
-   PL_SIM_LIB_Power_t    PrevPower;
-   PL_SIM_LIB_Detector_t Detector;
+   PL_SIM_LIB_Power_Enum_t CurrPower;
+   PL_SIM_LIB_Power_Enum_t PrevPower;
+   PL_SIM_LIB_Detector_t   Detector;
    
    bool DetectorFault;
 

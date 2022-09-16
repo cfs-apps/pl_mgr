@@ -58,8 +58,8 @@ void PAYLOAD_Constructor(PAYLOAD_Class_t *PayloadPtr, INITBL_Class_t *IniTbl)
 
    CFE_PSP_MemSet((void*)Payload, 0, sizeof(PAYLOAD_Class_t));
    
-   Payload->CurrPower = PL_SIM_LIB_POWER_OFF;
-   Payload->PrevPower = PL_SIM_LIB_POWER_OFF;
+   Payload->CurrPower = PL_SIM_LIB_Power_OFF;
+   Payload->PrevPower = PL_SIM_LIB_Power_OFF;
    
    SCI_FILE_Constructor(&Payload->SciFile, IniTbl);
          
@@ -81,7 +81,7 @@ void PAYLOAD_ManageData(void)
 
    Payload->CurrPower = PL_SIM_LIB_ReadPowerState();
    
-   if (Payload->CurrPower == PL_SIM_LIB_POWER_READY)
+   if (Payload->CurrPower == PL_SIM_LIB_Power_READY)
    {   
       PL_SIM_LIB_ReadDetector(&Payload->Detector);
 
@@ -98,7 +98,7 @@ void PAYLOAD_ManageData(void)
    else
    {
       /* Check whether transitioned from READY to non-READY state */
-      if (Payload->PrevPower == PL_SIM_LIB_POWER_READY)
+      if (Payload->PrevPower == PL_SIM_LIB_Power_READY)
       {
          if (Payload->SciFile.State == SCI_FILE_ENABLED)
          {
@@ -141,7 +141,7 @@ bool PAYLOAD_StartSciCmd (void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 
    bool RetStatus = false;
    
-   if (Payload->CurrPower == PL_SIM_LIB_POWER_READY)
+   if (Payload->CurrPower == PL_SIM_LIB_Power_READY)
    {
       
       if (SCI_FILE_Start() == true)

@@ -78,36 +78,11 @@ typedef enum
 
 } SCI_FILE_Control_t;
 
-typedef struct
-{
-   uint16  ImagesPerFile;
-   char    PathBaseFilename[OS_MAX_PATH_LEN];
-   char    FileExtension[SCI_FILE_EXT_MAX_CHAR];
-
-} SCI_FILE_Config_t;
-
 
 /******************************************************************************
 ** Command Packets
-**
+** - See EDS command definitions in pl_mgr.xml
 */
-
-typedef struct
-{
-
-   CFE_MSG_CommandHeader_t CmdHeader;
-   
-   SCI_FILE_Config_t  Payload;
-
-} SCI_FILE_ConfigCmdMsg_t;
-#define SCI_FILE_CONFIG_CMD_DATA_LEN  (sizeof(SCI_FILE_ConfigCmdMsg_t) - sizeof(CFE_MSG_CommandHeader_t))
-
-
-/******************************************************************************
-** Telemetry Packets
-*/
-
-
 
 /******************************************************************************
 ** SCI_FILE_Class
@@ -123,7 +98,7 @@ typedef struct
    uint16            ImageCnt;
    char Name[OS_MAX_PATH_LEN];
 
-   SCI_FILE_Config_t Config;
+   PL_MGR_ConfigSciFile_Payload_t Config;
 
 } SCI_FILE_Class_t;
 

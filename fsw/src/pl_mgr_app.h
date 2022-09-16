@@ -57,44 +57,17 @@
 /** Type Definitions **/
 /**********************/
 
+
 /******************************************************************************
 ** Command Packets
-**
+** - See EDS command definitions in pl_mgr.xml
 */
+
 
 /******************************************************************************
 ** Telemetry Packets
+** - See EDS command definitions in pl_mgr.xml
 */
-
-typedef struct
-{
-
-   CFE_MSG_TelemetryHeader_t TelemetryHeader;
-
-   /*
-   ** CMDMGR Data
-   */
-   uint16   ValidCmdCnt;
-   uint16   InvalidCmdCnt;
-   
-   /*
-   ** Payload Data
-   */
-   
-   uint8    PayloadPowerState;
-   bool     PayloadDetectorFault;
-   uint16   PayloadDetectorReadoutRow;   /* Only need 8-bits, so have 8 bit spare */
-   uint16   PayloadDetectorImageCnt;
-
-   /*
-   ** Science File Data
-   */
-
-   bool     SciFileOpen;
-   uint8    SciFileImageCnt;   
-   char SciFilename[OS_MAX_PATH_LEN];
-   
-} PL_MGR_StatusTlm_t;
 
 
 typedef struct

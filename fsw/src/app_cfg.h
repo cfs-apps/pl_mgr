@@ -32,7 +32,7 @@
 ** Includes
 */
 
-#include "cfe.h"
+#include "pl_mgr_eds_typedefs.h"
 #include "pl_mgr_platform_cfg.h"
 #include "osk_c_fw.h"
 
@@ -63,7 +63,7 @@
 #define CFG_APP_PERF_ID         APP_PERF_ID
 
 #define CFG_PL_MGR_CMD_TOPICID         PL_MGR_CMD_TOPICID
-#define CFG_PL_MGR_EXE_TOPICID         PL_MGR_EXE_TOPICID
+#define CFG_BC_SCH_1_HZ_TOPICID        BC_SCH_1_HZ_TOPICID
 #define CFG_PL_MGR_STATUS_TLM_TOPICID  PL_MGR_STATUS_TLM_TOPICID
 #define CFG_TLM_SLOW_RATE              TLM_SLOW_RATE
       
@@ -78,7 +78,7 @@
    XX(APP_CFE_NAME,char*) \
    XX(APP_PERF_ID,uint32) \
    XX(PL_MGR_CMD_TOPICID,uint32) \
-   XX(PL_MGR_EXE_TOPICID,uint32) \
+   XX(BC_SCH_1_HZ_TOPICID,uint32) \
    XX(PL_MGR_STATUS_TLM_TOPICID,uint32) \
    XX(TLM_SLOW_RATE,uint32) \
    XX(CMD_PIPE_DEPTH,uint32) \
@@ -88,19 +88,6 @@
    XX(SCI_FILE_IMAGE_CNT,uint32) \
 
 DECLARE_ENUM(Config,APP_CONFIG)
-
-
-/******************************************************************************
-** Command Macros
-**
-** Start/stop science are owned by payload but they are prefixed with 'PL_MGR'
-** because the macos are used in stored commands and the app name makes them
-** more readable 
-*/
-
-#define PAYLOAD_START_SCI_CMD_FC  (CMDMGR_APP_START_FC + 0)
-#define PAYLOAD_STOP_SCI_CMD_FC   (CMDMGR_APP_START_FC + 1)
-#define SCI_FILE_CONFIG_CMD_FC    (CMDMGR_APP_START_FC + 2)
 
 
 /******************************************************************************
@@ -133,7 +120,7 @@ DECLARE_ENUM(Config,APP_CONFIG)
 */
 
 #define SCI_FILE_EXT_MAX_CHAR   8
-#define SCI_FILE_UNDEF_FILE     "null"
+#define SCI_FILE_UNDEF_FILE     "Undefined"
 
 
 #endif /* _app_cfg_ */

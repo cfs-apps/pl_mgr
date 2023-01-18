@@ -34,7 +34,7 @@
 
 #include "pl_mgr_eds_typedefs.h"
 #include "pl_mgr_platform_cfg.h"
-#include "osk_c_fw.h"
+#include "app_c_fw.h"
 
 
 /******************************************************************************
@@ -44,7 +44,7 @@
 /*
 ** Versions:
 **
-** 1.0 - Initial release based on OSK Instrument Simulator(ISIM)
+** 1.0 - Initial release based on OpenSatKit Instrument Simulator(ISIM)
 */
 
 #define  PL_MGR_MAJOR_VER   0
@@ -98,9 +98,9 @@ DECLARE_ENUM(Config,APP_CONFIG)
 ** exceeded so it is the developer's responsibility to verify the ranges. 
 */
 
-#define PL_MGR_BASE_EID    (OSK_C_FW_APP_BASE_EID +  0)
-#define PAYLOAD_BASE_EID   (OSK_C_FW_APP_BASE_EID + 20)
-#define SCI_FILE_BASE_EID  (OSK_C_FW_APP_BASE_EID + 40)
+#define PL_MGR_BASE_EID    (APP_C_FW_APP_BASE_EID +  0)
+#define PAYLOAD_BASE_EID   (APP_C_FW_APP_BASE_EID + 20)
+#define SCI_FILE_BASE_EID  (APP_C_FW_APP_BASE_EID + 40)
 
 
 /*

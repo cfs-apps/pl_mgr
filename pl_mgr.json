@@ -23,7 +23,7 @@
       "tables": ["pl_mgr_ini.json"]
    },
    
-   "requires": ["osk_c_fw", "pl_sim_lib"]
+   "requires": ["app_c_fw", "pl_sim_lib"]
 
 }}
 

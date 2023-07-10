@@ -22,7 +22,7 @@
 **    2. The payload object encapulates the payload interface (maximize
 **       coupling), however some of the interface types are needed by the
 **       pl_mgr app and the sci_file object. In an effort to minimze coupling
-**       pl_sim_app.h is included here and payload.h should only be included
+**       pl_sim_lib.h is included here and payload.h should only be included
 **       where it is absolutely needed. 
 **    3. This is a command driven design as opposed to a data driven design.
 **       Commands are used to start/stop science data file management. An 
@@ -41,10 +41,10 @@
 ** Includes
 */
 
-#include <ctype.h>
 #include "app_cfg.h"
 #include "pl_sim_lib.h"  /* See prologue notes */
 #include "sci_file.h"
+#include "detector_mon.h"
 
 /***********************/
 /** Macro Definitions **/
@@ -54,12 +54,12 @@
 ** Event Message IDs
 */
 
-#define PAYLOAD_START_SCI_CMD_EID     (PAYLOAD_BASE_EID + 0)
-#define PAYLOAD_START_SCI_CMD_ERR_EID (PAYLOAD_BASE_EID + 1)
-#define PAYLOAD_STOP_SCI_CMD_EID      (PAYLOAD_BASE_EID + 2)
-#define PAYLOAD_STOP_SCI_CMD_ERR_EID  (PAYLOAD_BASE_EID + 3)
-#define PAYLOAD_SHUTDOWN_SCI_EID      (PAYLOAD_BASE_EID + 4)
-
+#define PAYLOAD_START_SCI_CMD_EID          (PAYLOAD_BASE_EID + 0)
+#define PAYLOAD_START_SCI_CMD_ERR_EID      (PAYLOAD_BASE_EID + 1)
+#define PAYLOAD_STOP_SCI_CMD_EID           (PAYLOAD_BASE_EID + 2)
+#define PAYLOAD_STOP_SCI_CMD_ERR_EID       (PAYLOAD_BASE_EID + 3)
+#define PAYLOAD_SHUTDOWN_SCI_EID           (PAYLOAD_BASE_EID + 4)
+#define PAYLOAD_RESET_DETECTOR_CMD_ERR_EID (PAYLOAD_BASE_EID + 5)
 
 /**********************/
 /** Type Definitions **/
@@ -73,13 +73,12 @@
 typedef struct
 {
    
-   PL_SIM_LIB_Power_Enum_t CurrPower;
-   PL_SIM_LIB_Power_Enum_t PrevPower;
+   PL_SIM_LIB_Power_Enum_t PowerState;
+   PL_SIM_LIB_Power_Enum_t PrevPowerState;
    PL_SIM_LIB_Detector_t   Detector;
    
-   bool DetectorFault;
-
-   SCI_FILE_Class_t SciFile;
+   SCI_FILE_Class_t    SciFile;
+   DETCTOR_MON_Class_t DetectorMon;
 
 } PAYLOAD_Class_t;
 
@@ -108,6 +107,21 @@ void PAYLOAD_Constructor(PAYLOAD_Class_t *PayloadPtr, INITBL_Class_t *IniTbl);
 **
 */
 void PAYLOAD_ManageData(void);
+
+
+/******************************************************************************
+** Functions: PAYLOAD_ResetDetectorCmd
+**
+** Reset the detector electronics
+**
+** Notes:
+**  1. This function must comply with the CMDMGR_CmdFuncPtr definition
+**  2. Reset allows an intermediate level of initialization to be simulated
+**     that allows some system state to persist across the reset. For
+**     science data may be allowed to resume immediately after a reset.
+**
+*/
+bool PAYLOAD_ResetDetectorCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************

@@ -47,8 +47,8 @@
 ** 1.0 - Initial release based on OpenSatKit Instrument Simulator(ISIM)
 */
 
-#define  PL_MGR_MAJOR_VER   0
-#define  PL_MGR_MINOR_VER   9
+#define  PL_MGR_MAJOR_VER   1
+#define  PL_MGR_MINOR_VER   0
 
 
 /******************************************************************************
@@ -98,10 +98,10 @@ DECLARE_ENUM(Config,APP_CONFIG)
 ** exceeded so it is the developer's responsibility to verify the ranges. 
 */
 
-#define PL_MGR_BASE_EID    (APP_C_FW_APP_BASE_EID +  0)
-#define PAYLOAD_BASE_EID   (APP_C_FW_APP_BASE_EID + 20)
-#define SCI_FILE_BASE_EID  (APP_C_FW_APP_BASE_EID + 40)
-
+#define PL_MGR_BASE_EID        (APP_C_FW_APP_BASE_EID +  0)
+#define PAYLOAD_BASE_EID       (APP_C_FW_APP_BASE_EID + 20)
+#define SCI_FILE_BASE_EID      (APP_C_FW_APP_BASE_EID + 40)
+#define DETECTOR_MON_BASE_EID  (APP_C_FW_APP_BASE_EID + 50)
 
 /*
 ** One event ID is used for all initialization debug messages. Uncomment one of

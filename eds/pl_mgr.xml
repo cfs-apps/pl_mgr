@@ -83,7 +83,7 @@
       </ContainerDataType>
 
       <!-- Use separate function codes for start/stop science commands as opposed to one command -->
-      <!-- with a parameter. This makes it easier for automated onboard command sequences. -->
+      <!-- with a parameter. This makes it easier for automated onboard command sequences.       -->
       
       <ContainerDataType name="StartSci" baseType="CommandBase" shortDescription="Start collecting and saving science data to files">
         <ConstraintSet>
@@ -104,6 +104,12 @@
         <EntryList>
           <Entry type="ConfigSciFile_Payload" name="Payload" />
         </EntryList>
+      </ContainerDataType>
+
+      <ContainerDataType name="ResetDetector" baseType="CommandBase" shortDescription="Reset detector electronics">
+        <ConstraintSet>
+          <ValueConstraint entry="Sec.FunctionCode" value="${APP_C_FW/APP_BASE_CC} + 3" />
+        </ConstraintSet>
       </ContainerDataType>
 
 

@@ -39,7 +39,7 @@
 /** Global File Data **/
 /**********************/
 
-static SCI_FILE_Class_t*  SciFile = NULL;
+static SCI_FILE_Class_t *SciFile = NULL;
 
 
 /*******************************/
@@ -92,7 +92,7 @@ void SCI_FILE_Constructor(SCI_FILE_Class_t *SciFilePtr, INITBL_Class_t *IniTbl)
 **           rest of filename and extension.
 **
 */
-bool SCI_FILE_ConfigCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
+bool SCI_FILE_ConfigCmd(void *DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 {
 
    const PL_MGR_ConfigSciFile_Payload_t *ConfigCmd = CMDMGR_PAYLOAD_PTR(MsgPtr, PL_MGR_ConfigSciFile_t);

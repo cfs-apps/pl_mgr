@@ -1,7 +1,6 @@
 {
    "title": "Payload Manager(PL_MGR) initialization file",
    "description": [ "Define runtime configurations",
-                    "CMD_MID and HK_TLM_MID are also defined in pl_mgr_msgids.h so they can be included by other apps.",
                     "SCI_FILE_EXTENSION must be 8 characters or less"],
    "config": {
       

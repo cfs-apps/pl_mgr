@@ -200,6 +200,7 @@ static int32 InitApp(void)
   
       CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_START_SCI_CC,       PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, 0);
       CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_STOP_SCI_CC,        PAYLOAD_OBJ,  PAYLOAD_StopSciCmd,  0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_RESET_DETECTOR_CC,  PAYLOAD_OBJ,  PAYLOAD_ResetDetectorCmd, 0);
       CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_CONFIG_SCI_FILE_CC, SCI_FILE_OBJ, SCI_FILE_ConfigCmd,  sizeof(PL_MGR_ConfigSciFile_Payload_t));
      
       CFE_MSG_Init(CFE_MSG_PTR(PlMgr.StatusTlm.TelemetryHeader), 
@@ -257,7 +258,7 @@ static int32 ProcessCommands(void)
          {
 
             PAYLOAD_ManageData();
-            if (PlMgr.Payload.CurrPower != PL_SIM_LIB_Power_OFF)
+            if (PlMgr.Payload.PowerState != PL_SIM_LIB_Power_OFF)
             {
                SendStatusTlm();
             }
@@ -324,8 +325,8 @@ static void SendStatusTlm(void)
    ** Payload Data
    */
    
-   Payload->PayloadPowerState         = PlMgr.Payload.CurrPower;
-   Payload->PayloadDetectorFault      = PlMgr.Payload.DetectorFault;
+   Payload->PayloadPowerState         = PlMgr.Payload.PowerState;
+   Payload->PayloadDetectorFault      = PlMgr.Payload.DetectorMon.FaultPresent;
    Payload->PayloadDetectorReadoutRow = PlMgr.Payload.Detector.ReadoutRow;
    Payload->PayloadDetectorImageCnt   = PlMgr.Payload.Detector.ImageCnt;
 

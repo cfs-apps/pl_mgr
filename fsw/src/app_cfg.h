@@ -49,7 +49,7 @@
 */
 
 #define  PL_MGR_MAJOR_VER   3
-#define  PL_MGR_MINOR_VER   1
+#define  PL_MGR_MINOR_VER   2
 
 
 /******************************************************************************

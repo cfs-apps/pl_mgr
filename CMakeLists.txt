@@ -1,9 +1,7 @@
-project(CFS_pl_mgr C)
+project(CFS_PL_MGR C)
 
-include_directories(fsw/src)
 include_directories(fsw/mission_inc)
 include_directories(fsw/platform_inc)
-include_directories(${cfs_lib_MISSION_DIR}/fsw/public_inc)
 include_directories(${app_c_fw_MISSION_DIR}/fsw/app_inc)
 include_directories(${app_c_fw_MISSION_DIR}/fsw/platform_inc)
 include_directories(${app_c_fw_MISSION_DIR}/fsw/mission_inc)

@@ -198,10 +198,10 @@ static int32 InitApp(void)
       CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_RESET_CC, NULL, PL_MGR_ResetAppCmd, 0);
               
   
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_START_SCI_CC,       PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, 0);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_STOP_SCI_CC,        PAYLOAD_OBJ,  PAYLOAD_StopSciCmd,  0);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_RESET_DETECTOR_CC,  PAYLOAD_OBJ,  PAYLOAD_ResetDetectorCmd, 0);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_CONFIG_SCI_FILE_CC, SCI_FILE_OBJ, SCI_FILE_ConfigCmd,  sizeof(PL_MGR_ConfigSciFile_Payload_t));
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_START_SCI_CC,       PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, 0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_STOP_SCI_CC,        PAYLOAD_OBJ,  PAYLOAD_StopSciCmd,  0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_RESET_DETECTOR_CC,  PAYLOAD_OBJ,  PAYLOAD_ResetDetectorCmd, 0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_CONFIG_SCI_FILE_CC, SCI_FILE_OBJ, SCI_FILE_ConfigCmd,  sizeof(PL_MGR_ConfigSciFile_Payload_t));
      
       CFE_MSG_Init(CFE_MSG_PTR(PlMgr.StatusTlm.TelemetryHeader), 
                    CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_STATUS_TLM_TOPICID)),

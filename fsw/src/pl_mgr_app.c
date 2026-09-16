@@ -194,8 +194,8 @@ static int32 InitApp(void)
       */
 
       CMDMGR_Constructor(CMDMGR_OBJ);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_NOOP_CC,  NULL, PL_MGR_NoOpCmd,     0);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, PL_MGR_RESET_CC, NULL, PL_MGR_ResetAppCmd, 0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_NOOP_CC,  NULL, PL_MGR_NoOpCmd,     0);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_RESET_CC, NULL, PL_MGR_ResetAppCmd, 0);
               
   
       CMDMGR_RegisterFunc(CMDMGR_OBJ, EDS_CONTAINER_PL_MGR_START_SCI_CC,       PAYLOAD_OBJ,  PAYLOAD_StartSciCmd, 0);

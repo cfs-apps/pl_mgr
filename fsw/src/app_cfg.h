@@ -64,7 +64,7 @@
 #define CFG_APP_PERF_ID         APP_PERF_ID
 
 #define CFG_PL_MGR_CMD_TOPICID         PL_MGR_CMD_TOPICID
-#define CFG_BC_SCH_1_HZ_TOPICID        BC_SCH_1_HZ_TOPICID
+#define CFG_PL_MGR_EXECUTE_TOPICID     BC_SCH_1_SEC_TOPICID          // TOPICID renamed to execute to minimize changes if new BC_SCH_x_TOPICIDD used
 #define CFG_PL_MGR_STATUS_TLM_TOPICID  PL_MGR_STATUS_TLM_TOPICID
 #define CFG_TLM_SLOW_RATE              TLM_SLOW_RATE
       
@@ -79,7 +79,7 @@
    XX(APP_CFE_NAME,char*) \
    XX(APP_PERF_ID,uint32) \
    XX(PL_MGR_CMD_TOPICID,uint32) \
-   XX(BC_SCH_1_HZ_TOPICID,uint32) \
+   XX(BC_SCH_1_SEC_TOPICID,uint32) \
    XX(PL_MGR_STATUS_TLM_TOPICID,uint32) \
    XX(TLM_SLOW_RATE,uint32) \
    XX(CMD_PIPE_DEPTH,uint32) \

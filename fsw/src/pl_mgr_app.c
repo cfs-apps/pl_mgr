@@ -174,7 +174,7 @@ static int32 InitApp(void)
       CFE_ES_PerfLogEntry(PlMgr.PerfId);
 
       PlMgr.CmdMid      = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_CMD_TOPICID));
-      PlMgr.ExecuteMid  = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_BC_SCH_1_HZ_TOPICID));
+      PlMgr.ExecuteMid  = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_PL_MGR_EXECUTE_TOPICID));
       PlMgr.TlmSlowRate = INITBL_GetIntConfig(INITBL_OBJ, CFG_TLM_SLOW_RATE);
 
       PAYLOAD_Constructor(PAYLOAD_OBJ, INITBL_OBJ);

@@ -46,10 +46,11 @@
 **
 ** 1.0 - Initial release based on OpenSatKit Instrument Simulator(ISIM)
 ** 3.1 - Compatible with Basecamp 3.x new app version management
+** 4.0 - Updated to cFS 7.0 (Basecamp 4.0 release)
 */
 
-#define  PL_MGR_MAJOR_VER   3
-#define  PL_MGR_MINOR_VER   2
+#define  PL_MGR_MAJOR_VER   4
+#define  PL_MGR_MINOR_VER   0
 
 
 /******************************************************************************
